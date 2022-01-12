@@ -19,8 +19,8 @@ services:
       - ${KAFKA_PORT}:${KAFKA_PORT}
     hostname: 'kafka'
     environment:
-      - KAFKA_ADVERTISED_HOST_NAME = kafka
-      - KAFKA_ADVERTISED_LISTENERS = PLAINTEXT://:9092
+      - KAFKA_ADVERTISED_HOST_NAME=kafka
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://:9092
       #- PLAINTEXT_HOST://localhost:9092
       - KAFKA_AUTO_CREATE_TOPICS_ENABLE=true
       - KAFKA_DELETE_TOPIC_ENABLE=true
@@ -28,7 +28,7 @@ services:
       #- KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka-internal:${KAFKA_PORT}
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper:${ZOOKEEPER_PORT}
       - ALLOW_PLAINTEXT_LISTENER=yes
-      - KAFKA_CREATE_TOPICS = "patika-test"
+      - KAFKA_CREATE_TOPICS="patika-test"
     depends_on:
       - zookeeper
     #expose:
@@ -51,7 +51,7 @@ services:
     volumes:
       - ./data/pgsql:/var/lib/postgresql/data
       #- pgdata:/var/lib/postgresql/data
-      - ./data/init.sql:/docker-entrypoint-initdb.d/initialize.sql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - ${PG_PORT}:${PG_PORT}
     networks:
@@ -75,6 +75,8 @@ services:
     container_name: ${REDIS_SERVICE_NAME}
     image: ${REDIS_IMAGE}
     restart: always
+    hostname: 'redis'
+    #command: ["redis", "--bind", "redis", "--port", "6379"]
     #command: >
     #      --requirepass ${REDIS_PASS}
     ports:
@@ -96,13 +98,41 @@ services:
     networks:
       - app-network
 
+  mongodb:
+    container_name: ${MONGO_SERVICE_NAME}
+    image: ${MONGO_IMAGE}
+    ports:
+      - ${MONGO_PORT}:${MONGO_PORT}
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASS}
+    networks:
+      - app-network
+
+  mongo-express:
+    container_name: ${MONGO_MANAGE_SERVICE_NAME}
+    image: ${MONGO_MANAGE_IMAGE}
+    restart: always
+    ports:
+      - ${MONGO_MANAGE_PORT}:${MONGO_MANAGE_PORT}
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_MANAGE_USER}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_MANAGE_PASS}
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_ROOT_USER}:${MONGO_ROOT_PASS}@${MONGO_HOST}:${MONGO_PORT}/
+    networks:
+      - app-network
+
   web:
     container_name: ${COMPOSE_PROJECT_NAME}
-    build: ../
+    #image: patikadev_web
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - 3000:3000
     environment:
       # Environment vars used for pg node module
+      PORT: 3000
       PGHOST: ${PG_HOST}
       PGPORT: ${PG_PORT}
       PGUSER: ${PG_USER}
@@ -111,14 +141,18 @@ services:
     depends_on:
       - kafka
       - postgres
+      - redis
+      - mongodb
     links:
       - kafka:kafka
+      - redis:redis
+      - mongodb:mongodb
     volumes:
-      - .:/app
+      - ../.:/app
       - node_modules:/app/node_modules
     networks:
       - app-network
-      -
+
 networks:
   app-network:
     driver: bridge
