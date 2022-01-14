@@ -4,8 +4,7 @@
   "description": "Inavitas Bootcamp Micro Service Skelton",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "supervisor node app.js"
+    "start": "nodemon app.js"
   },
   "author": "Inavitas",
   "license": "MIT",
@@ -22,6 +21,6 @@
     "swagger-ui-express": "^4.3.0"
   },
   "devDependencies": {
-    "supervisor": "^0.12.0"
+    "nodemon": "^2.0.7"
   }
 }
