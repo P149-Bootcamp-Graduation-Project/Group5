@@ -16,7 +16,7 @@ RUN npm install
 COPY . .
 
 EXPOSE 3000
-CMD [ "supervisor", "app.js" ]
+CMD [ "npm", "start" ]
 
 
 
