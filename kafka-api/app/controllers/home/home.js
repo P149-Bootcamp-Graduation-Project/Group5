@@ -35,6 +35,10 @@ const homeIndexGet = (req, res) => {
     res.send([{name:name, surname:surname, message:message},{id:2,Name:'Jay'}])
 }
 
+
+
+
+
 module.exports =  {
     homeIndex,
     homeIndexGet

@@ -1,1 +1,0 @@
-conslo.log("Hello, World! ");
