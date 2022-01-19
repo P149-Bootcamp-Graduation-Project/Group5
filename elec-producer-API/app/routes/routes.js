@@ -1,20 +1,12 @@
-//const homeController = require('../controllers/home/home');
-const { homeIndex, homeIndexGet } = require("../controllers/home/home");
-const { electricityPost } = require("../controllers/producer/producerElec");
+const {
+  elecDataGet,
+  elecDataPost,
+} = require("../controllers/producer/producer");
 const router = express.Router();
 
 //Chain methods
-router.route("/home").post(homeIndex).get(homeIndexGet);
-router.route("/elec").post(electricityPost);
+router.route("/elec").get(elecDataGet).post(elecDataPost);
 
-//HTTP METHODS
-/*
-POST
-GET
-PATCH/PUT
-DELETE
-OPTIONS
-*/
 module.exports = {
   router,
 };
