@@ -12,11 +12,11 @@ docker-compose stop
 # silmek için
 docker-compose stop && docker volume prune && docker rm $(docker ps -a -q)  && docker rmi $(docker images -a -q)
 # control etmek
-docker images -a && docker ps -a 
+docker images -a && docker ps -a
 ```
 
 For runing normal  
-```npm run start```
+`npm run start`
 
-For runing with hot reload   
-```npm run dev```
+For runing with hot reload  
+`npm run dev`
