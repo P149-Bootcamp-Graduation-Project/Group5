@@ -1,20 +1,12 @@
-//const homeController = require('../controllers/home/home');
-const { homeIndex, homeIndexGet } = require("../controllers/home/home");
-const { tempPost } = require("../controllers/producer/producerTemp");
+const {
+  tempDataPost,
+  tempDataGet,
+} = require("../controllers/producer/producer");
 const router = express.Router();
 
 //Chain methods
-router.route("/home").post(homeIndex).get(homeIndexGet);
-router.route("/temp").post(tempPost);
+router.route("/temp").get(tempDataGet).post(tempDataPost);
 
-//HTTP METHODS
-/*
-POST
-GET
-PATCH/PUT
-DELETE
-OPTIONS
-*/
 module.exports = {
   router,
 };
