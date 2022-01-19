@@ -5,7 +5,7 @@ const {
 const router = express.Router();
 
 //Chain methods
-router.route("/temp").get(elecDataGet).post(elecDataPost);
+router.route("/elec").get(elecDataGet).post(elecDataPost);
 
 module.exports = {
   router,

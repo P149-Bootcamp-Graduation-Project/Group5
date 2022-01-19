@@ -1,5 +1,5 @@
-const { json } = require("express/lib/response");
 const { Kafka } = require("kafkajs");
+
 const kafka = new Kafka({
   clientId: "kafka_start",
   brokers: ["192.168.1.2:9092"],
@@ -37,6 +37,7 @@ async function createProducer(data) {
     console.log("[ERROR] : ", error);
     const errData = {
       pwd: "./app/controllers/producer/producer.js",
+      topic: "Temperature-sensor",
       req_path: "/air",
       err_func: "createProducer",
       content_err: error,
@@ -66,6 +67,7 @@ async function createConsumer() {
     console.log("[ERROR] : ", error);
     const errData = {
       pwd: "./app/controllers/producer/producer.js",
+      topic: "Temperature-sensor",
       req_path: "/air",
       err_func: "createConsumer",
       content_err: error,
