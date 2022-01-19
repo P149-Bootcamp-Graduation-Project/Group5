@@ -1,0 +1,15 @@
+//const homeController = require('../controllers/home/home');
+const {homeIndex, homeIndexGet} = require('../controllers/home/home');
+const router                    = express.Router();
+
+
+router.route('/home')
+    .post(homeIndex)
+    .get(homeIndexGet);
+
+
+router.route('/')
+
+module.exports = {
+    router
+};
