@@ -114,6 +114,11 @@ docker run --name kafka -p 9092:9092 -e KAFKA_ZOOKEEPER_CONNECT=192.168.1.2:2181
 - Producer & consumer çıktısı
   <img src="./img/consumer-prducer.png" alt="mimari" width="100%" height="50%" align="kafka" style="margin:10px">
 
+- Non-Cache çıktı süresi
+  <img src="./img/non-cache.png" alt="mimari" width="100%" height="50%" align="kafka" style="margin:10px">
+
+- Cache çıktı süresi
+  <img src="./img/cache.png" alt="mimari" width="100%" height="50%" align="kafka" style="margin:10px">
 ## Yazar
 
 - [@JimySheepman](https://github.com/JimySheepman)
