@@ -19,7 +19,7 @@ Okul enerji takip sistemi (monitoring). Okullarda bulunan sınıfların, ısı d
 
 ## Mimari
 
-<img src="./img/mimeri.png" alt="mimari" width="100%" height="50%" align="center" style="margin:10px">
+<img src="./img/mimari.png" alt="mimari" width="100%" height="50%" align="center" style="margin:10px">
 
 ## Mikro Servisler
 
@@ -110,9 +110,9 @@ docker run --name kafka -p 9092:9092 -e KAFKA_ZOOKEEPER_CONNECT=192.168.1.2:2181
 ## Başlangıç
 
 - Başlatma manuel  
-`./start.sh`
+  `./start.sh`
 - Producer & consumer çıktısı
-<img src="./img/consumer-prducer.png" alt="mimari" width="100%" height="50%" align="kafka" style="margin:10px">
+  <img src="./img/consumer-prducer.png" alt="mimari" width="100%" height="50%" align="kafka" style="margin:10px">
 
 ## Yazar
 
