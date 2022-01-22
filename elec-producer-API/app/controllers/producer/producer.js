@@ -6,14 +6,16 @@ const kafka = new Kafka({
 });
 
 const producer = kafka.producer();
-const consumer = kafka.consumer({
-  groupId: "consumer_group_start",
-});
 
 let incomingMessage = "";
 let is_producer_conn = false;
-let is_consumer_conn = false;
-const TEST_WITH_CONSUMER = false;
+
+const elecErrGet = async (req, res, err) => {
+  if (!isNaN(err)) {
+    res.send(err);
+  }
+  res.end();
+};
 
 async function createProducer(data) {
   try {
@@ -38,74 +40,62 @@ async function createProducer(data) {
     const errData = {
       pwd: "./app/controllers/producer/producer.js",
       topic: "Electricity-sensor",
-      req_path: "/air",
+      req_path: "/elec",
       err_func: "createProducer",
       content_err: error,
     };
-  }
-}
-
-async function createConsumer() {
-  try {
-    if (!is_consumer_conn) {
-      console.log("Consumer is  connecting...");
-      await consumer.connect();
-      console.log("Consumer connect successful!");
-      await consumer.subscribe({
-        topic: "Electricity-sensor",
-        fromBeginning: true,
-      });
-      await consumer.run({
-        eachMessage: async (result) => {
-          incomingMessage = `msg -> ${result.message.value}, par -> ${result.partition}`;
-          console.log(incomingMessage);
-        },
-      });
-      is_consumer_conn = true;
-    }
-  } catch (error) {
-    console.log("[ERROR] : ", error);
-    const errData = {
-      pwd: "./app/controllers/producer/producer.js",
-      topic: "Electricity-sensor",
-      req_path: "/air",
-      err_func: "createConsumer",
-      content_err: error,
-    };
+    elecErrGet(errData);
   }
 }
 
 createProducer();
-if (TEST_WITH_CONSUMER) createConsumer();
 
 const elecDataGet = async (req, res) => {
   await createProducer("-> ").then(async () => {
-    if (TEST_WITH_CONSUMER) {
-      await createConsumer().then(() => {
-        res.send(JSON.stringify(incomingMessage));
-      });
+    try {
+      res.send(JSON.stringify(incomingMessage));
+    } catch (error) {
+      console.log("[ERROR] : ", error);
+      const errData = {
+        pwd: "./app/controllers/producer/producer.js",
+        topic: "Electricity-sensor",
+        req_path: "/elec",
+        err_func: "elecDataGet",
+        content_err: error,
+      };
+      elecErrGet(errData);
     }
   });
   res.end();
 };
 
 const elecDataPost = async (req, res) => {
-  const obj = req.body;
-  if (!obj) {
-    console.log("400 -> Bad request");
-  }
-  console.log("Temp-Data -> ", obj);
-  await createProducer(obj).then(async (data) => {
-    if (TEST_WITH_CONSUMER) {
-      await createConsumer().then(() => {
+  try {
+    const obj = req.body;
+    if (!obj) {
+      console.log("400 -> Bad request");
+    } else {
+      console.log("Temp-Data -> ", obj);
+      await createProducer(obj).then(async () => {
         res.send(JSON.stringify(incomingMessage));
       });
     }
-  });
-  res.end();
+    res.end();
+  } catch (error) {
+    console.log("[ERROR] : ", error);
+    const errData = {
+      pwd: "./app/controllers/producer/producer.js",
+      topic: "Electricity-sensor",
+      req_path: "/elec",
+      err_func: "elecDataPost",
+      content_err: error,
+    };
+    elecErrGet(errData);
+  }
 };
 
 module.exports = {
   elecDataGet,
   elecDataPost,
+  elecErrGet,
 };
