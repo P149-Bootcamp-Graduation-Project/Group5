@@ -16,4 +16,4 @@ try {
     console.log(err.stack);
 }
 
-exports.pg_client = pg_client
+module.exports = pg_client

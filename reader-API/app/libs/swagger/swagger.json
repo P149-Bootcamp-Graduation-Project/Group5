@@ -1,0 +1,466 @@
+{ "swagger": "2.0",
+    "info": {
+      "title": "Bootcamp Final Project",
+      "description": "Project API Documentation",
+      "version": "1.0"
+    },
+    "tags": [
+      {
+        "name": "User",
+        "description": "for users"
+      },
+      {
+        "name": "School",
+        "description": "for schools"
+      },
+      {
+        "name": "Class",
+        "description": "for class"
+      },
+      {
+        "name": "Log Temperature",
+        "description": "for temperature log"
+      },
+      {
+        "name": "Log Electricity",
+        "description": "for electricity log"
+      },
+      {
+        "name": "Log Air Quality",
+        "description": "for air quality log"
+      },
+      {
+        "name": "Sensor",
+        "description": "for sensor"
+      }
+    ],
+    "paths": {
+      "/user": {
+        "get": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Get all users ",
+          "description": "",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": 1
+                      
+                    },
+                    "user_title": {
+                      "type": "string",
+                      "example": "user2"
+                    },
+                    "user_name": {
+                      "type": "string",
+                      "example": "Koray Avcı"
+                    },
+                    "user_pass": {
+                      "type": "string",
+                      "example": "njasojkbia8324j"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "user2@gmail.com"
+                    },
+                    "phone": {
+                      "type": "string",
+                      "example": "05534231200"
+                    },
+                    "last_login": {
+                      "type": "string",
+                      "example": "2001-10-10"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "example": "2001-09-10"
+                    },
+                    "is_active": {
+                      "type": "boolean",
+                      "example": "true"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/school": {
+        "get": {
+          "tags": [
+            "School"
+          ],
+          "summary": "Get all users in system",
+          "description": "",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": 4
+                    },
+                    "school_name": {
+                      "type": "string",
+                      "example": "Marmara Üniversitesi"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "example": "Maltepe/İstanbul"
+                    },
+                    "city_id": {
+                      "type": "integer",
+                      "example": 34
+                    },
+                    "total_class": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "example": "2021-12-12"
+                    },
+                    "created_by": {
+                      "type": "integer",
+                      "example": 12
+                    },
+                    "is_active": {
+                      "type": "boolean",
+                      "example": "true"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/sensor": {
+        "get": {
+          "tags": [
+            "Sensor"
+          ],
+          "summary": "Get all Sensors ",
+          "description": "",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": 2
+                    },
+                    "school_id": {
+                      "type": "integer",
+                      "example": 10
+                    },
+                    "class_id": {
+                      "type": "integer",
+                      "example": 12
+                    },
+                    "sensor_name": {
+                      "type": "string",
+                      "example": "Isi sensoru"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "example": "lorem ipsum"
+                    },
+                    "default_protokol": {
+                      "type": "string",
+                      "example": "ModBUS"
+                    },
+                    "default_ip": {
+                      "type": "string",
+                      "example": "107.0.0.1"
+                    },
+                    "default_port": {
+                      "type": "string",
+                      "example": "3000"
+                    },
+                    "default_channel": {
+                      "type": "string",
+                      "example": "---"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "example": "2021-02-15"
+                    },
+                    "connected_at": {
+                      "type": "string",
+                      "example": "2021-02-16"
+                    },
+                    "created_by": {
+                      "type": "integer",
+                      "example": 12
+                    },
+                    "is_online": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "is_active": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/class": {
+        "get": {
+          "tags": [
+            "Class"
+          ],
+          "summary": "Get all Class",
+          "description": "",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": 3
+                    },
+                    "school_id": {
+                      "type": "integer",
+                      "example": 10
+                    },
+                    "floor_num": {
+                      "type": "integer",
+                      "example": 2
+                    },
+                    "class_name": {
+                      "type": "string",
+                      "example": "10/A"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "example": "lorem ipsum"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "example": "2021-04-22"
+                    },
+                    "created_by": {
+                      "type": "integer",
+                      "example": 22
+                    },
+                    "is_active": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/log-air": {
+        "get": {
+          "tags": [
+            "Log Air Quality"
+          ],
+          "summary": "Get all logs 0f Air Quality ",
+          "description": "",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": 4
+                    },
+                    "school_id": {
+                      "type": "integer",
+                      "example": 23
+                    },
+                    "class_id": {
+                      "type": "integer",
+                      "example": 22
+                    },
+                    "sensor_id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "sensor_data": {
+                      "type": "string",
+                      "example": "200"
+                    },
+                    "read_at": {
+                      "type": "string",
+                      "example": "2001-10-09"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "example": "2001-10-10"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/log-temp": {
+        "get": {
+          "tags": [
+            "Log Temperature"
+          ],
+          "summary": "Get all logs 0f Temperature ",
+          "description": "",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": 4
+                    },
+                    "school_id": {
+                      "type": "integer",
+                      "example": 23
+                    },
+                    "class_id": {
+                      "type": "integer",
+                      "example": 22
+                    },
+                    "sensor_id": {
+                      "type": "integer",
+                      "example": 2
+                    },
+                    "sensor_data": {
+                      "type": "string",
+                      "example": "25"
+                    },
+                    "read_at": {
+                      "type": "string",
+                      "example": "2001-10-09"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "example": "2001-10-10"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/log-elec": {
+        "get": {
+          "tags": [
+            "Log Electricity"
+          ],
+          "summary": "Get all logs 0f Electricity ",
+          "description": "",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": 4
+                    },
+                    "school_id": {
+                      "type": "integer",
+                      "example": 23
+                    },
+                    "class_id": {
+                      "type": "integer",
+                      "example": 22
+                    },
+                    "sensor_id": {
+                      "type": "integer",
+                      "example": 2
+                    },
+                    "sensor_data": {
+                      "type": "string",
+                      "example": "170"
+                    },
+                    "read_at": {
+                      "type": "string",
+                      "example": "2001-10-09"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "example": "2001-10-10"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
