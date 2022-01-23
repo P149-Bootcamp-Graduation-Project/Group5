@@ -1,5 +1,19 @@
 require('dotenv').config({ path: __dirname+'/.env' });
-const createConsumerTemperature = require('./app/adapters/queue/consumerTemp');
+const express = require('express');
+const app = express();
+const router = require('./app/routes/consumerRoute');
 
 
-createConsumerTemperature();
+app.use('/',router);
+
+app.listen(process.env.APP_PORT, function() {
+
+    console.log("Server is ready");
+})
+
+
+
+
+
+
+
