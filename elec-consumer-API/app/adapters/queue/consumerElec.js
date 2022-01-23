@@ -1,6 +1,7 @@
 const { Kafka } = require("kafkajs");
 const converter = require("../../helper/timeConverter");
 const electricityLogger = require("../../models/electricityLog");
+const errorHandler = require("../../controllers/error/error");
 
 const kafka = new Kafka({
   clientId: "kafka_start",
@@ -8,14 +9,11 @@ const kafka = new Kafka({
 });
 
 const consumer = kafka.consumer({
-  groupId: "consumer_group_start"
+  groupId: "consumer_group_start",
 });
-
-
 
 async function createConsumerElectricity() {
   try {
-   
     console.log("Electricity-Consumer is connecting...");
     await consumer.connect();
     console.log("Connection is successfully...");
@@ -25,27 +23,26 @@ async function createConsumerElectricity() {
     });
 
     await consumer.run({
-      eachMessage: async ({message}) => {
-        const {id,sensor_data,time_stamp}= JSON.parse(message.value.toString());
+      eachMessage: async ({ message }) => {
+        const { id, sensor_data, time_stamp } = JSON.parse(
+          message.value.toString()
+        );
         let read_at = await converter(time_stamp);
-
-        await electricityLogger(1,1,id,sensor_data,read_at);
-        //console.log(message.value.toString());
-        
+        await electricityLogger(1, 1, id, sensor_data, read_at);
       },
     });
   } catch (error) {
     console.log(
       "[ERROR] An error occurred while read to message from electricity-sensor..."
     );
-
     const errData = {
       pwd: "./app/adapters/queue/consumerElec.js",
       topic: "Electricity-sensor",
       err_func: "createConsumerElectricity",
       content_err: error,
     };
+    errorHandler(errData);
   }
 }
 
-module.exports =createConsumerElectricity;
+module.exports = createConsumerElectricity;

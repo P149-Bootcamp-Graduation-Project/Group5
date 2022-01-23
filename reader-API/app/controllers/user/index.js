@@ -1,34 +1,26 @@
-const {rd_client} = require('../../adapters/database/redis');
-const User = require('../../models/user');
+const { rd_client } = require("../../adapters/database/redis");
+const User = require("../../models/user");
+const errorHandler = require("../error/error");
 
-const getUsers=async(req, res) => {
+const getUsers = async (req, res) => {
+  const cacheKey = "users";
 
-   
+  let cacheEntry = await rd_client.get(cacheKey);
 
-    const cacheKey="users";
+  if (cacheEntry) {
+    cacheEntry = JSON.parse(cacheEntry);
+    res.status(200).json({ ...cacheEntry, source: "from cache" });
+  }
 
-    let cacheEntry= await rd_client.get(cacheKey);
-    
+  try {
+    const data = await User();
 
-    if(cacheEntry){
-        cacheEntry = JSON.parse(cacheEntry);
-        res.status(200).json({...cacheEntry, source :'from cache'})  
-        
-    }
+    await rd_client.setEx(cacheKey, 180, JSON.stringify(data));
 
-    try {
-        const data = await User();
-        
-        await rd_client.setEx(cacheKey,180,JSON.stringify(data));
-        
-       
-        res.status(200).json({...data, source:"from database"});
-    } catch (error) {
-        return error
-    
-    }
+    res.status(200).json({ ...data, source: "from database" });
+  } catch (error) {
+    errorHandler(error);
+  }
+};
 
-}
-
-
-module.exports = {getUsers}
+module.exports = { getUsers };

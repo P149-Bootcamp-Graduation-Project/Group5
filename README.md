@@ -119,6 +119,7 @@ docker run --name kafka -p 9092:9092 -e KAFKA_ZOOKEEPER_CONNECT=192.168.1.2:2181
 
 - Cache çıktı süresi
   <img src="./img/cache.png" alt="mimari" width="100%" height="50%" align="kafka" style="margin:10px">
+
 ## Yazar
 
 - [@JimySheepman](https://github.com/JimySheepman)
@@ -128,3 +129,267 @@ docker run --name kafka -p 9092:9092 -e KAFKA_ZOOKEEPER_CONNECT=192.168.1.2:2181
 ## Lisans
 
 Bu proje [MIT](https://choosealicense.com/licenses/mit/) lisans kapsamındaır.
+
+```Bash
+merlins@jimmmmy ~/Desktop/bootcamp/Son$ tree                                                                                                                                                                                     ✖ ✹ ✭main
+.
+├── air-consumer-API
+│   ├── app
+│   │   ├── adapters
+│   │   │   ├── database
+│   │   │   │   ├── mongodb.js
+│   │   │   │   ├── postgresql.js
+│   │   │   │   └── redis.js
+│   │   │   └── queue
+│   │   │       └── consumerAir.js
+│   │   ├── controllers
+│   │   │   ├── airLog
+│   │   │   │   └── index.js
+│   │   │   └── error
+│   │   │       └── error.js
+│   │   ├── helper
+│   │   │   └── timeConverter.js
+│   │   ├── models
+│   │   │   └── airLog
+│   │   │       └── index.js
+│   │   └── routes
+│   │       └── routes.js
+│   ├── app.js
+│   ├── init.sql
+│   ├── package.json
+│   └── package-lock.json
+├── air-data-generator
+│   ├── adapters
+│   │   └── config
+│   │       └── config.go
+│   ├── app
+│   │   └── controller
+│   │       └── sensors.go
+│   ├── go.mod
+│   ├── go.sum
+│   ├── internal
+│   │   ├── common
+│   │   │   └── common.go
+│   │   └── entities
+│   │       └── entities.go
+│   ├── main.go
+│   ├── Makefile
+│   └── README.md
+├── air-producer-API
+│   ├── app
+│   │   ├── adapters
+│   │   │   └── queue
+│   │   │       └── kafka.js
+│   │   ├── controllers
+│   │   │   ├── error
+│   │   │   │   └── error.js
+│   │   │   └── producer
+│   │   │       └── producer.js
+│   │   └── routes
+│   │       └── routes.js
+│   ├── app.js
+│   ├── package.json
+│   ├── package-lock.json
+│   └── README.md
+├── elec-consumer-API
+│   ├── app
+│   │   ├── adapters
+│   │   │   ├── database
+│   │   │   │   ├── mongodb.js
+│   │   │   │   ├── postgresql.js
+│   │   │   │   └── redis.js
+│   │   │   └── queue
+│   │   │       └── consumerElec.js
+│   │   ├── controllers
+│   │   │   ├── electricityLog
+│   │   │   │   └── index.js
+│   │   │   └── error
+│   │   │       └── error.js
+│   │   ├── helper
+│   │   │   └── timeConverter.js
+│   │   ├── models
+│   │   │   └── electricityLog
+│   │   │       └── index.js
+│   │   └── routes
+│   │       └── routes.js
+│   ├── app.js
+│   ├── init.sql
+│   ├── package.json
+│   └── package-lock.json
+├── elec-data-generator
+│   ├── adapters
+│   │   └── config
+│   │       └── config.go
+│   ├── app
+│   │   └── controller
+│   │       └── sensors.go
+│   ├── go.mod
+│   ├── go.sum
+│   ├── internal
+│   │   ├── common
+│   │   │   └── common.go
+│   │   └── entities
+│   │       └── entities.go
+│   ├── main.go
+│   ├── Makefile
+│   └── README.md
+├── elec-producer-API
+│   ├── app
+│   │   ├── adapters
+│   │   │   └── queue
+│   │   │       └── kafka.js
+│   │   ├── controllers
+│   │   │   ├── error
+│   │   │   │   └── error.js
+│   │   │   └── producer
+│   │   │       └── producer.js
+│   │   └── routes
+│   │       └── routes.js
+│   ├── app.js
+│   ├── package.json
+│   ├── package-lock.json
+│   └── README.md
+├── error-API
+│   ├── app
+│   │   ├── adapters
+│   │   │   └── database
+│   │   │       └── mongodb.js
+│   │   ├── controllers
+│   │   │   └── errorController.js
+│   │   └── routes
+│   │       └── errorRoute.js
+│   ├── app.js
+│   ├── package.json
+│   ├── package-lock.json
+│   └── views
+│       └── index.ejs
+├── img
+│   ├── cache.png
+│   ├── consumer-prducer.png
+│   ├── mimari.png
+│   └── non-cache.png
+├── LICENSE
+├── reader-API
+│   ├── app
+│   │   ├── adapters
+│   │   │   └── database
+│   │   │       ├── postgresql.js
+│   │   │       └── redis.js
+│   │   ├── controllers
+│   │   │   ├── class
+│   │   │   │   └── index.js
+│   │   │   ├── error
+│   │   │   │   └── error.js
+│   │   │   ├── logAir
+│   │   │   │   └── index.js
+│   │   │   ├── logElectricity
+│   │   │   │   └── index.js
+│   │   │   ├── logTemperature
+│   │   │   │   └── index.js
+│   │   │   ├── school
+│   │   │   │   └── index.js
+│   │   │   ├── sensor
+│   │   │   │   └── index.js
+│   │   │   └── user
+│   │   │       └── index.js
+│   │   ├── libs
+│   │   │   └── swagger
+│   │   │       └── swagger.json
+│   │   ├── models
+│   │   │   ├── Class
+│   │   │   │   └── index.js
+│   │   │   ├── logAir
+│   │   │   │   └── index.js
+│   │   │   ├── logElectricity
+│   │   │   │   └── index.js
+│   │   │   ├── logTemperature
+│   │   │   │   └── index.js
+│   │   │   ├── school
+│   │   │   │   └── index.js
+│   │   │   ├── sensor
+│   │   │   │   └── index.js
+│   │   │   └── user
+│   │   │       └── index.js
+│   │   └── routes
+│   │       ├── classRouter
+│   │       │   └── index.js
+│   │       ├── index.js
+│   │       ├── logAirRouter
+│   │       │   └── index.js
+│   │       ├── logElecRouter
+│   │       │   └── index.js
+│   │       ├── logTempRouter
+│   │       │   └── index.js
+│   │       ├── schoolRouter
+│   │       │   └── index.js
+│   │       ├── sensorRouter
+│   │       │   └── index.js
+│   │       └── userRouter
+│   │           └── index.js
+│   ├── app.js
+│   ├── package.json
+│   ├── package-lock.json
+│   └── README.md
+├── README.md
+├── temp-consumer-API
+│   ├── app
+│   │   ├── adapters
+│   │   │   ├── database
+│   │   │   │   ├── mongodb.js
+│   │   │   │   ├── postgresql.js
+│   │   │   │   └── redis.js
+│   │   │   └── queue
+│   │   │       └── consumerTemp.js
+│   │   ├── controllers
+│   │   │   ├── error
+│   │   │   │   └── error.js
+│   │   │   └── temperatureLog
+│   │   │       └── index.js
+│   │   ├── helper
+│   │   │   └── timeConverter.js
+│   │   ├── models
+│   │   │   └── temperatureLog
+│   │   │       └── index.js
+│   │   └── routes
+│   │       └── routes.js
+│   ├── app.js
+│   ├── init.sql
+│   ├── package.json
+│   └── package-lock.json
+├── temp-data-generator
+│   ├── adapters
+│   │   └── config
+│   │       └── config.go
+│   ├── app
+│   │   └── controller
+│   │       └── sensors.go
+│   ├── go.mod
+│   ├── go.sum
+│   ├── internal
+│   │   ├── common
+│   │   │   └── common.go
+│   │   └── entities
+│   │       └── entities.go
+│   ├── main.go
+│   ├── Makefile
+│   └── README.md
+└── temp-producer-API
+    ├── app
+    │   ├── adapters
+    │   │   └── queue
+    │   │       └── kafka.js
+    │   ├── controllers
+    │   │   ├── error
+    │   │   │   └── error.js
+    │   │   └── producer
+    │   │       └── producer.js
+    │   └── routes
+    │       └── routes.js
+    ├── app.js
+    ├── package.json
+    ├── package-lock.json
+    └── README.md
+
+123 directories, 133 files
+
+```

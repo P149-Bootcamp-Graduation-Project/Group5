@@ -1,26 +1,22 @@
-const moment = require("moment");
 const { mongo_client } = require("./../adapters/database/mongodb");
 
-exports.logErrors = async (error, data) => {
-  console.error(error.message, data);
-  const errmessage = error.message;
-  const app_path = data.app_path;
-  const line_num = data.line_num;
-  const func_name = data.func_name;
-  const createdAt = moment().format("DD/MM/YYYY HH:mm:ss");
-
+logErrors = async (req, res) => {
   const db = mongo_client.db("grup5");
-  const collection = db.collection("errorlogs");
-  collection.insertOne({
-    errmessage: `${errmessage}`,
-    app_path: `${app_path}`,
-    line_num: `${line_num}`,
-    func_name: `${func_name}`,
-    createdAt: `${createdAt}`,
-  });
+  const log = req.body;
+  console.log(log);
+  await db
+    .collection("errorlogs")
+    .insertOne(log)
+    .then((result) => {
+      res.status(200).send(result);
+      console.log("succes");
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 };
 
-exports.errorList = async (req, res) => {
+errorList = async (req, res) => {
   const db = mongo_client.db("grup5");
   const collection = db.collection("errorlogs");
   collection
@@ -33,4 +29,9 @@ exports.errorList = async (req, res) => {
     .catch((error) => {
       res.redirect("/");
     });
+};
+
+module.exports = {
+  logErrors,
+  errorList,
 };

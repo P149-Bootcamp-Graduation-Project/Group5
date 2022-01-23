@@ -1,8 +1,6 @@
 package main
 
 import (
-	"github.com/gorilla/handlers"
-	"github.com/gorilla/mux"
 	"log"
 	cnf "main/adapters/config"
 	controllers "main/app/controller"
@@ -10,6 +8,9 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+
+	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
 )
 
 type App struct {

@@ -1,8 +1,6 @@
 package main
 
 import (
-	"github.com/gorilla/handlers"
-	"github.com/gorilla/mux"
 	"log"
 	cnf "main/adapters/config"
 	controllers "main/app/controller"
@@ -10,6 +8,9 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+
+	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
 )
 
 type App struct {
@@ -34,6 +35,6 @@ func main() {
 		}
 	}
 
-	log.Fatal(http.ListenAndServe("0.0.0.0:3005", handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}), handlers.AllowedMethods([]string{"GET", "POST", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(router)))
+	log.Fatal(http.ListenAndServe("0.0.0.0:3006", handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}), handlers.AllowedMethods([]string{"GET", "POST", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(router)))
 
 }

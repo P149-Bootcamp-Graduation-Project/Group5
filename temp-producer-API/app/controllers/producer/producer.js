@@ -1,4 +1,5 @@
 const { Kafka } = require("kafkajs");
+const errorHandler = require("../error/error");
 
 const kafka = new Kafka({
   clientId: "kafka_start",
@@ -42,6 +43,7 @@ async function createProducer(data) {
       err_func: "createProducer",
       content_err: error,
     };
+    errorHandler(errData);
   }
 }
 
@@ -72,6 +74,7 @@ async function createConsumer() {
       err_func: "createConsumer",
       content_err: error,
     };
+    errorHandler(errData);
   }
 }
 

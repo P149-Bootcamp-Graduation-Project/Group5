@@ -1,34 +1,26 @@
-const {rd_client} = require('../../adapters/database/redis');
-const LogTemperature = require('../../models/logTemperature');
+const { rd_client } = require("../../adapters/database/redis");
+const LogTemperature = require("../../models/logTemperature");
+const errorHandler = require("../error/error");
 
-const getLogTemperature=async(req, res) => {
+const getLogTemperature = async (req, res) => {
+  const cacheKey = "log-temperature";
 
-   
+  let cacheEntry = await rd_client.get(cacheKey);
 
-    const cacheKey="log-temperature";
+  if (cacheEntry) {
+    cacheEntry = JSON.parse(cacheEntry);
+    res.status(200).json({ ...cacheEntry, source: "from cache" });
+  }
 
-    let cacheEntry= await rd_client.get(cacheKey);
-    
+  try {
+    const data = await LogTemperature();
 
-    if(cacheEntry){
-        cacheEntry = JSON.parse(cacheEntry);
-        res.status(200).json({...cacheEntry, source :'from cache'})  
-        
-    }
+    await rd_client.setEx(cacheKey, 180, JSON.stringify(data));
 
-    try {
-        const data = await LogTemperature();
-        
-        await rd_client.setEx(cacheKey,180,JSON.stringify(data));
-        
-       
-        res.status(200).json({...data, source:"from database"});
-    } catch (error) {
-        return error
-    
-    }
+    res.status(200).json({ ...data, source: "from database" });
+  } catch (error) {
+    errorHandler(error);
+  }
+};
 
-}
-
-
-module.exports = {getLogTemperature}
+module.exports = { getLogTemperature };

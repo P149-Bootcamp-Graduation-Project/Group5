@@ -1,7 +1,7 @@
 const { Kafka } = require("kafkajs");
 const converter = require("../../helper/timeConverter");
 const airLogger = require("../../models/airLog");
-
+const errorHandler = require("../../controllers/error/error");
 
 const kafka = new Kafka({
   clientId: "kafka_start",
@@ -12,10 +12,8 @@ const consumer = kafka.consumer({
   groupId: "consumer_group_start",
 });
 
-
 async function createConsumerAir() {
   try {
-  
     console.log("Air-Consumer is connecting...");
     await consumer.connect();
     console.log("Connection is successfully...");
@@ -25,19 +23,17 @@ async function createConsumerAir() {
     });
 
     await consumer.run({
-      eachMessage: async ({message}) => {
-
-        const {id,sensor_data,time_stamp}= JSON.parse(message.value.toString());
+      eachMessage: async ({ message }) => {
+        const { id, sensor_data, time_stamp } = JSON.parse(
+          message.value.toString()
+        );
         let read_at = await converter(time_stamp);
-        
-        await airLogger(1,1,id,sensor_data,read_at);
-        
-        
-        //console.log(message.value.toString());
+
+        await airLogger(1, 1, id, sensor_data, read_at);
       },
     });
   } catch (error) {
-     console.log(
+    console.log(
       "[ERROR] An error occurred while read to message from air-sensor..."
     );
     const errData = {
@@ -46,16 +42,8 @@ async function createConsumerAir() {
       err_func: "createConsumerAir",
       content_err: error,
     };
-
-    // const airErrGet = async (req, res, err) => {
-    //   if (!isNaN(err)) {
-    //     res.send(err);
-    //   }
-    //   res.end();
-    // };
-
+    errorHandler(errData);
   }
 }
 
-
-module.exports =createConsumerAir;
+module.exports = createConsumerAir;
