@@ -26,14 +26,12 @@ async function createConsumerElectricity() {
 
     await consumer.run({
       eachMessage: async ({message}) => {
-        
-        // const {DATAAAAA}= JSON.parse(message.value.toString())
-        //   const {id,sensor_data,time_stamp} = DATAAAAA;
-        //   let date = await converter(time_stamp);
-        //   console.log(sensor_data,date);
+        const {id,sensor_data,time_stamp}= JSON.parse(message.value.toString());
+        let read_at = await converter(time_stamp);
 
-        console.log(message.value.toString());
-        //await electricityLogger()
+        await electricityLogger(1,1,id,sensor_data,read_at);
+        //console.log(message.value.toString());
+        
       },
     });
   } catch (error) {
