@@ -6,6 +6,7 @@ exports.logErrors = async (error, data) => {
   const errmessage = error.message;
   const app_path = data.app_path;
   const line_num = data.line_num;
+  const func_name = data.func_name;
   const createdAt = moment().format("DD/MM/YYYY HH:mm:ss");
 
   const db = mongo_client.db("grup5");
@@ -14,7 +15,8 @@ exports.logErrors = async (error, data) => {
     errmessage: `${errmessage}`,
     app_path: `${app_path}`,
     line_num: `${line_num}`,
-    createdAt: `${createdAt}`
+    func_name: `${func_name}`,
+    createdAt: `${createdAt}`,
   });
 };
 

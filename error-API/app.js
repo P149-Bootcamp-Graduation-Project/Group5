@@ -9,18 +9,6 @@ app.use(express.json());
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 
-const axios = require("axios").default;
-
-axios
-  .get("http://localhost:3000/device/device_list")
-  .then((resp) => {
-    console.log(resp.data);
-  })
-  .catch((err) => {
-    // Handle Error Here
-    console.error(err);
-  });
-
 app.use("/", errorRoute);
 
 const port = 3001;
