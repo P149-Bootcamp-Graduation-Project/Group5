@@ -187,6 +187,10 @@ make -f Makefile
 
 <img src="./img/redis.png" alt="mimari" width="100%" height="50%" align="redis" style="margin:10px">
 
+- Task Manager ekran görüntüsü
+
+<img src="./img/task-manager.png" alt="mimari" width="100%" height="50%" align="redis" style="margin:10px">
+
 ## Yazar
 
 - [@JimySheepman](https://github.com/JimySheepman)
