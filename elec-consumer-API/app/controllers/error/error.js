@@ -4,7 +4,7 @@ const errorHandler = async (err) => {
   const data = err;
   const config = {
     method: "post",
-    url: "http://localhost:3001/airErr",
+    url: "http://localhost:3001/err",
     headers: { "Content-Type": "application/json", Accept: "application/json" },
     data: data,
   };
