@@ -28,7 +28,9 @@ async function createConsumerElectricity() {
           message.value.toString()
         );
         let read_at = await converter(time_stamp);
+
         await electricityLogger(1, 1, id, sensor_data, read_at);
+        console.log(JSON.parse(message.value.toString()));
       },
     });
   } catch (error) {
