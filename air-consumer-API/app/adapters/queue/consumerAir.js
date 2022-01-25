@@ -30,6 +30,10 @@ async function createConsumerAir() {
         let read_at = await converter(time_stamp);
 
         await airLogger(1, 1, id, sensor_data, read_at);
+
+        console.log(JSON.parse(message.value.toString()));
+        
+
       },
     });
   } catch (error) {
