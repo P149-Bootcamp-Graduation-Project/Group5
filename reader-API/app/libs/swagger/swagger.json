@@ -15,7 +15,7 @@
       },
       {
         "name": "Class",
-        "description": "for class"
+        "description": "for classes"
       },
       {
         "name": "Log Temperature",
@@ -31,7 +31,7 @@
       },
       {
         "name": "Sensor",
-        "description": "for sensor"
+        "description": "for sensors"
       }
     ],
     "paths": {
@@ -40,7 +40,7 @@
           "tags": [
             "User"
           ],
-          "summary": "Get all users ",
+          "summary": "Get all users",
           "description": "",
           "consumes": [
             "application/json"
@@ -104,7 +104,7 @@
           "tags": [
             "School"
           ],
-          "summary": "Get all users in system",
+          "summary": "Get all schools",
           "description": "",
           "produces": [
             "application/json"
@@ -160,7 +160,7 @@
           "tags": [
             "Sensor"
           ],
-          "summary": "Get all Sensors ",
+          "summary": "Get all Sensors",
           "description": "",
           "consumes": [
             "application/json"
@@ -243,7 +243,7 @@
           "tags": [
             "Class"
           ],
-          "summary": "Get all Class",
+          "summary": "Get all Classes",
           "description": "",
           "consumes": [
             "application/json"
@@ -302,7 +302,7 @@
           "tags": [
             "Log Air Quality"
           ],
-          "summary": "Get all logs 0f Air Quality ",
+          "summary": "Get all logs 0f Air Quality",
           "description": "",
           "consumes": [
             "application/json"
@@ -357,7 +357,7 @@
           "tags": [
             "Log Temperature"
           ],
-          "summary": "Get all logs 0f Temperature ",
+          "summary": "Get all logs 0f Temperature",
           "description": "",
           "consumes": [
             "application/json"
@@ -412,7 +412,7 @@
           "tags": [
             "Log Electricity"
           ],
-          "summary": "Get all logs 0f Electricity ",
+          "summary": "Get all logs 0f Electricity",
           "description": "",
           "consumes": [
             "application/json"
