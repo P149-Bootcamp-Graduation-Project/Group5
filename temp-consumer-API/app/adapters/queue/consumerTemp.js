@@ -1,5 +1,5 @@
 const { Kafka } = require("kafkajs");
-const converter = require("../../helper/timeConverter");
+const converter = require("../../middleware/timeConverter");
 const temperatureLogger = require("../../models/temperatureLog");
 const errorHandler = require("../../controllers/error/error");
 
@@ -41,6 +41,7 @@ async function createConsumerTemperature() {
       topic: "Temperature-sensor",
       err_func: "createConsumerTemperature",
       content_err: error,
+      created_at: converter(Date.now())
     };
     errorHandler(errData);
   }

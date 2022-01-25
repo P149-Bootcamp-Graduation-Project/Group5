@@ -1,5 +1,5 @@
 const { Kafka } = require("kafkajs");
-const converter = require("../../helper/timeConverter");
+const converter = require("../../middleware/timeConverter");
 const airLogger = require("../../models/airLog");
 const errorHandler = require("../../controllers/error/error");
 
@@ -45,6 +45,7 @@ async function createConsumerAir() {
       topic: "Air-sensor",
       err_func: "createConsumerAir",
       content_err: error,
+      created_at: converter(Date.now())
     };
     errorHandler(errData);
   }

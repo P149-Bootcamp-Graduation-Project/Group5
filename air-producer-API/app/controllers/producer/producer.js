@@ -1,5 +1,6 @@
 const { Kafka } = require("kafkajs");
 const errorHandler = require("../error/error");
+const converter = require("../../middleware/timeConverter");
 
 const kafka = new Kafka({
   clientId: "kafka_start",
@@ -42,6 +43,7 @@ async function createProducer(data) {
       req_path: "/air",
       err_func: "createProducer",
       content_err: error,
+      created_at: converter(Date.now())
     };
     errorHandler(errData);
   }
@@ -73,6 +75,7 @@ async function createConsumer() {
       req_path: "/air",
       err_func: "createConsumer",
       content_err: error,
+      created_at: converter(Date.now())
     };
     errorHandler(errData);
   }
