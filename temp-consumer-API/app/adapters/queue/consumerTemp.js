@@ -1,7 +1,7 @@
 const { Kafka } = require("kafkajs");
-const converter =require("../../helper/timeConverter");
+const converter = require("../../helper/timeConverter");
 const temperatureLogger = require("../../models/temperatureLog");
-
+const moment = require("moment");
 
 const kafka = new Kafka({
   clientId: "kafka_start",
@@ -12,12 +12,8 @@ const consumer = kafka.consumer({
   groupId: "consumer_group_start",
 });
 
-
-
-
 async function createConsumerTemperature() {
   try {
-   
     console.log("Temperature-sensor is connecting...");
     await consumer.connect();
     console.log("Connection is successfully...");
@@ -27,13 +23,12 @@ async function createConsumerTemperature() {
     });
 
     await consumer.run({
-      eachMessage: async ({message}) => {
-        
+      eachMessage: async ({ message }) => {
         // const {DATAAAAA}= JSON.parse(message.value.toString())
         //   const {id,sensor_data,time_stamp} = DATAAAAA;
         //   let date = await converter(time_stamp);
         //   console.log(sensor_data,date);
-        
+
         console.log(message.value.toString());
         //await temperatureLogger();
       },
@@ -47,9 +42,10 @@ async function createConsumerTemperature() {
       pwd: "./app/adapters/queue/consumerTemp.js",
       topic: "Temperature-sensor",
       err_func: "createConsumerTemperature",
-      content_err: error,
+      content_err: error.message,
+      createdAt: moment().format("DD/MM/YYYY HH:mm:ss"),
     };
   }
 }
 
-module.exports =createConsumerTemperature;
+module.exports = createConsumerTemperature;

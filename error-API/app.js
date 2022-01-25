@@ -1,6 +1,5 @@
 require("dotenv").config({ path: `${__dirname}/.env` });
 const errorRoute = require("./app/routes/errorRoute");
-const { mongo_client } = require("./app/adapters/database/mongodb");
 global.express = require("express");
 global.app = express();
 
@@ -11,7 +10,8 @@ app.use(express.static("public"));
 
 app.use("/", errorRoute);
 
-const port = 3001;
-app.listen(port, () => {
-  console.log(`server up and running on PORT : ${port}`);
-});
+app.listen(process.env.APP_PORT, process.env.APP_HOST, () =>
+  console.log(
+    `Server listening on http://${process.env.APP_HOST}:${process.env.APP_PORT}`
+  )
+);

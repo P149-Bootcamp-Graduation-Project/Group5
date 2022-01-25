@@ -21,9 +21,7 @@
     "ejs": "^3.1.6",
     "express": "^4.17.2",
     "moment": "^2.29.1",
-    "mongodb": "^4.3.0",
-    "winston": "^3.4.0",
-    "winston-mongodb": "^5.0.7"
+    "mongodb": "^4.3.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

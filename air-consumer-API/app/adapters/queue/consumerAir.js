@@ -1,7 +1,7 @@
 const { Kafka } = require("kafkajs");
 const converter = require("../../helper/timeConverter");
 const airLogger = require("../../models/airLog");
-
+const moment = require("moment");
 
 const kafka = new Kafka({
   clientId: "kafka_start",
@@ -12,10 +12,8 @@ const consumer = kafka.consumer({
   groupId: "consumer_group_start",
 });
 
-
 async function createConsumerAir() {
   try {
-  
     console.log("Air-Consumer is connecting...");
     await consumer.connect();
     console.log("Connection is successfully...");
@@ -25,13 +23,12 @@ async function createConsumerAir() {
     });
 
     await consumer.run({
-      eachMessage: async ({message}) => {
-
+      eachMessage: async ({ message }) => {
         // const {DATAAAAA}= JSON.parse(message.value.toString())
         // const {id,sensor_data,time_stamp} = DATAAAAA;
         //   let date = await converter(time_stamp);
         //   console.log(sensor_data,date);
-        
+
         console.log(message.value.toString());
         //await airLogger();
       },
@@ -44,10 +41,10 @@ async function createConsumerAir() {
       pwd: "./app/adapters/queue/consumerAir.js",
       topic: "Air-sensor",
       err_func: "createConsumerAir",
-      content_err: error,
+      content_err: error.message,
+      createdAt: moment().format("DD/MM/YYYY HH:mm:ss"),
     };
   }
 }
 
-
-module.exports =createConsumerAir;
+module.exports = createConsumerAir;

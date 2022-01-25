@@ -23,7 +23,7 @@
           <th>Created Time</th>
           <th>Error Message</th>
           <th>Error File</th>
-          <th>Error Line</th>
+          <th>Function Name</th>
         </tr>
       </thead>
       <tbody>
@@ -31,9 +31,9 @@
         <tr>
           <td><%= errors[i]._id %></td>
           <td><%= errors[i].createdAt %></td>
-          <td><%= errors[i].errmessage %></td>
-          <td><%= errors[i].app_path %></td>
-          <td><%= errors[i].line_num %></td>
+          <td><%= errors[i].content_err %></td>
+          <td><%= errors[i].pwd %></td>
+          <td><%= errors[i].err_func %></td>
         </tr>
         <% } %>
       </tbody>

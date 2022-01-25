@@ -1,4 +1,5 @@
 const { Kafka } = require("kafkajs");
+const moment = require("moment");
 
 const kafka = new Kafka({
   clientId: "kafka_start",
@@ -40,7 +41,8 @@ async function createProducer(data) {
       topic: "Temperature-sensor",
       req_path: "/air",
       err_func: "createProducer",
-      content_err: error,
+      content_err: error.message,
+      createdAt: moment().format("DD/MM/YYYY HH:mm:ss"),
     };
   }
 }
@@ -70,7 +72,8 @@ async function createConsumer() {
       topic: "Temperature-sensor",
       req_path: "/air",
       err_func: "createConsumer",
-      content_err: error,
+      content_err: error.message,
+      createdAt: moment().format("DD/MM/YYYY HH:mm:ss"),
     };
   }
 }

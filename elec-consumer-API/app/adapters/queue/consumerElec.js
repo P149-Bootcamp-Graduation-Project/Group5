@@ -1,6 +1,7 @@
 const { Kafka } = require("kafkajs");
 const converter = require("../../helper/timeConverter");
 const electricityLogger = require("../../models/electricityLog");
+const moment = require("moment");
 
 const kafka = new Kafka({
   clientId: "kafka_start",
@@ -8,14 +9,11 @@ const kafka = new Kafka({
 });
 
 const consumer = kafka.consumer({
-  groupId: "consumer_group_start"
+  groupId: "consumer_group_start",
 });
-
-
 
 async function createConsumerElectricity() {
   try {
-   
     console.log("Electricity-Consumer is connecting...");
     await consumer.connect();
     console.log("Connection is successfully...");
@@ -25,8 +23,7 @@ async function createConsumerElectricity() {
     });
 
     await consumer.run({
-      eachMessage: async ({message}) => {
-        
+      eachMessage: async ({ message }) => {
         // const {DATAAAAA}= JSON.parse(message.value.toString())
         //   const {id,sensor_data,time_stamp} = DATAAAAA;
         //   let date = await converter(time_stamp);
@@ -45,9 +42,10 @@ async function createConsumerElectricity() {
       pwd: "./app/adapters/queue/consumerElec.js",
       topic: "Electricity-sensor",
       err_func: "createConsumerElectricity",
-      content_err: error,
+      content_err: error.message,
+      createdAt: moment().format("DD/MM/YYYY HH:mm:ss"),
     };
   }
 }
 
-module.exports =createConsumerElectricity;
+module.exports = createConsumerElectricity;

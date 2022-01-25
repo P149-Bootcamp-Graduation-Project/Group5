@@ -1,4 +1,5 @@
 const { Kafka } = require("kafkajs");
+const moment = require("moment");
 
 const kafka = new Kafka({
   clientId: "kafka_start",
@@ -41,6 +42,7 @@ async function createProducer(data) {
       req_path: "/air",
       err_func: "createProducer",
       content_err: error,
+      createdAt: moment().format("DD/MM/YYYY HH:mm:ss"),
     };
   }
 }

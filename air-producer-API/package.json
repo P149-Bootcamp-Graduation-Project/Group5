@@ -22,7 +22,8 @@
     "pg": "^8.7.1",
     "redis": "^4.0.1",
     "swagger-jsdoc": "^6.1.0",
-    "swagger-ui-express": "^4.3.0"
+    "swagger-ui-express": "^4.3.0",
+    "moment": "^2.29.1"
   },
   "devDependencies": {
     "supervisor": "^0.12.0"
